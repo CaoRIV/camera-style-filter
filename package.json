@@ -1,0 +1,17 @@
+{
+  "name": "camerastylefilter",
+  "version": "1.0.0",
+  "description": "Real-time webcam style transformer — MediaPipe hand tracking picks the style by pointing left/right; fal-ai/flux-2/klein/realtime restyles the live feed.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "license": "MIT"
+}

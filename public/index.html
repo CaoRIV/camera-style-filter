@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CameraRealtimeStyle · Point to restyle your camera</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://storage.googleapis.com" />
+    <link rel="preconnect" href="https://esm.sh" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="stage" id="stage">
+        <!-- Raw camera (mirrored). Always rendered; covered by #out when a style is live. -->
+        <video id="video" playsinline muted></video>
+        <!-- Styled output layer (square frames from fal). -->
+        <img id="out" alt="" />
+        <!-- Transient cursor / direction layer -->
+        <canvas id="overlay"></canvas>
+
+        <!-- Top-left: how to drive it -->
+        <div class="hint" id="hint">
+          <div class="hint-title">Point to restyle</div>
+          <ul>
+            <li><span class="ic">👉</span> Point <b>right</b> — next style</li>
+            <li><span class="ic">👈</span> Point <b>left</b> — previous style</li>
+            <li><span class="ic">🖐️</span> Open hand — back to <b>normal feed</b></li>
+          </ul>
+          <div class="hint-note">Styles cycle in order. Hold a direction to keep moving. No camera gestures? Use the <b>←</b> / <b>→</b> keys.</div>
+        </div>
+
+        <!-- Top-right: current style / status -->
+        <div class="badge" id="badge">📷 Normal feed</div>
+
+        <!-- Center: big style-name flash on switch -->
+        <div class="toast" id="toast"></div>
+
+        <!-- Bottom: style carousel -->
+        <div class="strip" id="strip"></div>
+
+        <!-- Start screen -->
+        <div class="splash" id="splash">
+          <div class="splash-card">
+            <h1>CameraRealtimeStyle ✋🎨</h1>
+            <p>
+              Restyle your live camera in real time. Point your finger
+              <b>right</b> or <b>left</b> to flip through styles — claymation,
+              anime, oil painting and more — or open your hand to go back to the
+              normal feed.
+            </p>
+            <button id="startBtn" class="btn big">Start Camera</button>
+            <small id="splashNote">Camera permission required · frames are sent to fal only while a style is active.</small>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span><span id="state" class="dot"></span><span id="stateLabel">idle</span></span>
+        <span>FPS <b id="fps">0</b></span>
+        <span>Latency <b id="lat">0</b> ms</span>
+        <details>
+          <summary>Settings</summary>
+          <div class="adv">
+            <div>
+              <label for="endpoint">Endpoint</label>
+              <input id="endpoint" value="fal-ai/flux-2/klein/realtime" size="26" />
+            </div>
+            <div>
+              <label for="imageSize">Output size</label>
+              <select id="imageSize">
+                <option value="square" selected>square (768) · faster</option>
+                <option value="square_hd">square_hd (1024) · sharper</option>
+              </select>
+            </div>
+            <div>
+              <label for="steps">Steps</label>
+              <input id="steps" type="number" min="1" max="8" value="2" />
+            </div>
+            <div>
+              <label for="feedback">Feedback (1=follow camera, lower=smoother)</label>
+              <input id="feedback" type="number" min="0" max="1" step="0.05" value="1.0" />
+            </div>
+            <div>
+              <label for="sendFps">Send FPS (target)</label>
+              <input id="sendFps" type="number" min="1" max="30" value="16" />
+            </div>
+          </div>
+        </details>
+      </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
